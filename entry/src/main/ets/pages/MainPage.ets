@@ -54,7 +54,7 @@ struct MainPage {
       Text(item.title)
         .fontSize(12)
         .fontColor(
-          this.chooseIndex === index ? Color.Green : Color.Black
+          this.chooseIndex === index ? $r('app.color.Color56BA68') : Color.Black
         )
     }.width("100%")
   }
