@@ -1,4 +1,6 @@
+import promptAction from '@ohos.promptAction'
 import { MainPageBottomTabEntity } from '../entity/MainPageBottomTabEntity'
+import { MinePage } from './mine/MinePage'
 
 @Entry
 @Component
@@ -9,24 +11,34 @@ struct MainPage {
     new MainPageBottomTabEntity("发现", $r("app.media.app_icon"), $r("app.media.app_icon"), ""),
     new MainPageBottomTabEntity("我", $r("app.media.app_icon"), $r("app.media.app_icon"), "")
   ]
+
   /**
    * 当前选中的下标
    */
   @State chooseIndex: number = 0
 
   build() {
+    Tabs({ barPosition: BarPosition.End }) {
 
-    Tabs({
-      barPosition: BarPosition.End,
-    }) {
-      ForEach(this.bottomTabs,(item:MainPageBottomTabEntity,index:number)=>{
-        TabContent().tabBar(this.navigationBottomTabItem(item,index))
+      ForEach(this.bottomTabs, (item: MainPageBottomTabEntity, index: number) => {
+        TabContent() {
+          if (index === 3) {
+            MinePage()
+          } else {
+            Text("这是第" + index + "个页面")
+          }
+        }
+        .tabBar(this.navigationBottomTabItem(item, index))
+        .tabIndex(index)
       })
     }
     .scrollable(false)
     .width("100%")
     .height("100%")
-
+    .onChange((index) => {
+      this.chooseIndex = index
+      console.log(`index =${index}`)
+    })
   }
 
   /**
@@ -41,10 +53,9 @@ struct MainPage {
         .height(24)
       Text(item.title)
         .fontSize(12)
-    }
-    .layoutWeight(1)
-    .onClick(() => {
-      this.chooseIndex = index
-    })
+        .fontColor(
+          this.chooseIndex === index ? Color.Green : Color.Black
+        )
+    }.width("100%")
   }
 }
