@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/feancheng/.ohos/config/auto_debug_FakeWechat_com.feancheng.fakewechat_260086000305050609.cer",
+          "storePassword": "0000001BABBAB485640FA64E740EC7F7470A24806943DE4AA1BA7965A41D51568CD504BC0FB291FF60706E",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BD7D550FB58703F8D2134AB4072063C12ECAA28619078AAE359BD97ED7891465F699A2F620E2266",
+          "profile": "/Users/feancheng/.ohos/config/auto_debug_FakeWechat_com.feancheng.fakewechat_260086000305050609.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/feancheng/.ohos/config/auto_debug_FakeWechat_com.feancheng.fakewechat_260086000305050609.p12"
+        }
+      }
+    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [

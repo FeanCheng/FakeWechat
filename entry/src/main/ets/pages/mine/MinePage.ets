@@ -20,16 +20,35 @@ export struct MinePage {
    */
   @State region: string = "中国"
 
-  build() {
-    Column() {
-      this.headerContainer()
-      this.userStatusContainer()
-      MineFunctionPanelWidget()
-      Divider()
-        .color($r("app.color.ColorF5FAF7"))
-        .strokeWidth(8)
+  /**
+   * 用户最新的朋友圈图片
+   */
+  @State lastNewPictures:ResourceStr[] = []
 
+  aboutToAppear(){
+    //初始化头像数据
+    for (let i = 0; i < 10; i++) {
+      this.lastNewPictures.push($r("app.media.ic_my_default_avatar"))
     }
+  }
+
+
+  build() {
+    Scroll(){
+      Column() {
+        this.headerContainer()
+        this.userStatusContainer()
+        MineFunctionPanelWidget()
+        Divider()
+          .color($r("app.color.ColorF5FAF7"))
+          .strokeWidth(8)
+        this.userCollection()
+        this.userFriendCircle()
+        this.userFriendNewPictures()
+      }
+    }
+    .edgeEffect(EdgeEffect.Spring)
+    .scrollBar(BarState.Off)
     .width("100%")
     .height("100%")
 
@@ -161,19 +180,86 @@ export struct MinePage {
       .backgroundColor($r("app.color.ColorF5FAF7"))
   }
 
-  onPageShow() {
-    console.log("MinePage show")
+  /**
+   * 用户收藏
+   */
+  @Builder
+  userCollection(){
+    Row(){
+      Text("收藏")
+        .fontSize(16)
+        .fontColor($r("app.color.Color1A1A1B"))
+        .fontWeight(FontWeight.Medium)
+      Blank()
+      Image($r("app.media.ic_arrow_bottom"))
+        .width(14)
+        .rotate({
+          angle:-90
+        })
+    }
+    .padding({
+      left:20,
+      right:20
+    })
+    .width("100%")
+    .height(55)
   }
 
-  onPageHide() {
-    console.log("MinePage hide")
+
+
+  /**
+   * 用户朋友圈
+   */
+  @Builder
+  userFriendCircle(){
+    Row(){
+      Text("朋友圈")
+        .fontSize(16)
+        .fontColor($r("app.color.Color1A1A1B"))
+        .fontWeight(FontWeight.Medium)
+      Blank()
+      Text("64")
+        .fontSize(16)
+        .fontColor($r("app.color.Color1A1A1B"))
+        .fontWeight(FontWeight.Medium)
+      Image($r("app.media.ic_arrow_bottom"))
+        .width(14)
+        .rotate({
+          angle:-90
+        })
+    }
+    .padding({
+      left:20,
+      right:20
+    })
+    .width("100%")
+    .height(55)
   }
 
-  aboutToAppear() {
-    console.log("MinePage aboutToAppear")
+  /**
+   * 用户朋友圈最新的10张图片
+   */
+
+  @Builder
+  userFriendNewPictures(){
+    List({
+      space:10,
+      initialIndex:0
+    }){
+      ForEach(this.lastNewPictures,(item:ResourceStr, index:number)=>{
+        ListItem(){
+          Image(item)
+            .height(115)
+            .width("26%")
+            .borderRadius(6)
+        }
+      })
+    }
+    .margin({
+      left:20
+    })
+
+    .listDirection(Axis.Horizontal)
   }
 
-  aboutToDisappear() {
-    console.log("MinePage aboutToDisappear")
-  }
 }
