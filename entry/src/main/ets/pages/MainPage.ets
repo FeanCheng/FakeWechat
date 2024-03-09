@@ -6,10 +6,10 @@ import { MinePage } from './mine/MinePage'
 @Component
 struct MainPage {
   bottomTabs: MainPageBottomTabEntity[] = [
-    new MainPageBottomTabEntity("微信", $r("app.media.app_icon"), $r("app.media.app_icon"), ""),
-    new MainPageBottomTabEntity("通讯录", $r("app.media.app_icon"), $r("app.media.app_icon"), ""),
-    new MainPageBottomTabEntity("发现", $r("app.media.app_icon"), $r("app.media.app_icon"), ""),
-    new MainPageBottomTabEntity("我", $r("app.media.app_icon"), $r("app.media.app_icon"), "")
+    new MainPageBottomTabEntity("微信", $r("app.media.ic_message_default"), $r("app.media.ic_message_select"), ""),
+    new MainPageBottomTabEntity("通讯录", $r("app.media.ic_contact_default"), $r("app.media.ic_contact_select"), ""),
+    new MainPageBottomTabEntity("发现", $r("app.media.ic_friend_default"), $r("app.media.ic_friend_select"), ""),
+    new MainPageBottomTabEntity("我", $r("app.media.ic_mine_default"), $r("app.media.ic_mine_select"), "")
   ]
 
   /**
@@ -49,13 +49,14 @@ struct MainPage {
   navigationBottomTabItem(item: MainPageBottomTabEntity, index: number) {
     Column({ space: 5 }) {
       Image(item.getIcon(this.chooseIndex === index))
-        .width(24)
-        .height(24)
-      Text(item.title)
-        .fontSize(12)
-        .fontColor(
-          this.chooseIndex === index ? $r('app.color.Color56BA68') : Color.Black
-        )
-    }.width("100%")
+        .width(30)
+        .height(30)
+    }
+    .padding({
+      top:9.5
+    })
+    .width("100%")
+    .height(49)
+    .backgroundColor("#F5FAF7")
   }
 }

@@ -1,72 +1,179 @@
 import promptAction from '@ohos.promptAction'
+import { MineFunctionPanelWidget } from '../../widget/mine/MineFunctionPanelWidget'
+
 @Preview
 @Component
-export struct MinePage{
+export struct MinePage {
 
   // @State userAvatar:string = "app.media.app_icon"
+  /**
+   * 用户昵称
+   */
+  @State nickName: string = "阿锅"
+  /**
+   * 微信号
+   */
+  @State wechatId: string = "aqiyeeee"
 
-  build(){
+  /**
+   * 地区
+   */
+  @State region: string = "中国"
 
-    Column(){
+  build() {
+    Column() {
       this.headerContainer()
+      this.userStatusContainer()
+      MineFunctionPanelWidget()
+      Divider()
+        .color($r("app.color.ColorF5FAF7"))
+        .strokeWidth(8)
+
     }
     .width("100%")
     .height("100%")
 
   }
 
-
   @Builder
   //头部控件
-  headerContainer(){
-    RelativeContainer(){
-
+  headerContainer() {
+    RelativeContainer() {
       //头像
-      Image($r("app.media.app_icon"))
-        .height(60)
-        .width(60)
-        .borderRadius(4)
+      Image($r("app.media.ic_my_default_avatar"))
+        .height(70)
+        .width(70)
+        .borderRadius(8)
         .id("userAvatar")
         .margin({
-          top:'10%',
-          left:'5%'
+          top: 25,
+          left: 25
         })
         .alignRules({
-          top:{ anchor:"__container__",align:VerticalAlign.Top },
-          left:{ anchor:"__container__",align:HorizontalAlign.Start}
-        }).backgroundColor("#36d")
-
+          top: { anchor: "__container__", align: VerticalAlign.Top },
+          left: { anchor: "__container__", align: HorizontalAlign.Start }
+        })
+      // 昵称
       Text("阿锅")
-        .fontSize(20)
+        .fontSize(18)
         .fontColor(Color.Black)
         .fontWeight(FontWeight.Bold)
         .id("userNickName")
         .margin({
-          left:12
+          top: 35,
+          left: 15
+        })
+        .constraintSize({
+          maxWidth: 125
         })
         .alignRules({
-          top:{ anchor:"userAvatar",align:VerticalAlign.Top },
-          left:{ anchor:"userAvatar",align:HorizontalAlign.End}
+          top: { anchor: "userAvatar", align: VerticalAlign.Top },
+          left: { anchor: "userAvatar", align: HorizontalAlign.End }
+        })
+      Text(`微信号：${this.wechatId}`)
+        .fontSize(12)
+        .fontColor($r("app.color.Color969698"))
+        .id("wechatId")
+        .alignRules({
+          bottom: { anchor: "userAvatar", align: VerticalAlign.Bottom },
+          left: { anchor: "userNickName", align: HorizontalAlign.Start }
+        })
+        .margin({
+          left: 15,
+          bottom: 10
         })
 
+      Image($r("app.media.ic_qr_code"))
+        .height(35)
+        .width(35)
+        .id("mineQrCode")
+        .alignRules({
+          top: { anchor: "mineSetting", align: VerticalAlign.Top },
+          right: { anchor: "mineSetting", align: HorizontalAlign.Start }
+        })
+        .margin({
+          right: 10,
+          top: 30
+        })
+      //设置
+      Image($r("app.media.ic_setting"))
+        .height(35)
+        .width(35)
+        .id("mineSetting")
+        .alignRules({
+          top: { anchor: "__container__", align: VerticalAlign.Top },
+          right: { anchor: "__container__", align: HorizontalAlign.End }
+        })
+        .margin({
+          right: 25,
+          top: 30
+        })
     }
-    .height(200)
+    .height(110)
     .width("100%")
-    .backgroundColor("#f5f5f5")
   }
 
+  /**
+   * 用户状态
+   */
+  @Builder
+  userStatusContainer() {
+    Row(){
+      Image($r("app.media.ic_smile"))
+        .width(24)
+        .height(24)
+        .margin({
+          left: 15
+        })
+      Text("美滋滋")
+        .fontSize(14)
+        .fontColor($r("app.color.Color1A1A1B"))
+        .fontWeight(FontWeight.Bold)
+        .margin({
+          left: 4
+        })
+      Text("|")
+        .fontSize(14)
+        .fontColor("#D8D8D8")
+        .fontWeight(FontWeight.Bold)
+        .margin({
+          left: 10,
+          right:10
+        })
 
-  onPageShow(){
+      Text("25个好友也在美滋滋")
+        .fontSize(12)
+        .fontColor($r("app.color.Color1A1A1B"))
+        .fontWeight(FontWeight.Bold)
+
+      Blank()
+
+      Image($r("app.media.ic_arrow_bottom"))
+        .width(14)
+        .margin({
+          right:18
+        })
+    }
+      .alignItems(VerticalAlign.Center)
+      .height(44)
+      .width("90%")
+      .borderRadius(22)
+      .backgroundColor($r("app.color.ColorF5FAF7"))
+  }
+
+  onPageShow() {
     console.log("MinePage show")
   }
-  onPageHide(){
+
+  onPageHide() {
     console.log("MinePage hide")
   }
 
-  aboutToAppear(){
+  aboutToAppear() {
     console.log("MinePage aboutToAppear")
   }
-  aboutToDisappear(){
+
+  aboutToDisappear() {
     console.log("MinePage aboutToDisappear")
   }
 }
