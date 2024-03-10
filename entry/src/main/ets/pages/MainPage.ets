@@ -1,5 +1,6 @@
 import promptAction from '@ohos.promptAction'
 import { MainPageBottomTabEntity } from '../entity/MainPageBottomTabEntity'
+import { MessagePage } from './message/MessagePage'
 import { MinePage } from './mine/MinePage'
 
 @Entry
@@ -19,10 +20,11 @@ struct MainPage {
 
   build() {
     Tabs({ barPosition: BarPosition.End }) {
-
       ForEach(this.bottomTabs, (item: MainPageBottomTabEntity, index: number) => {
         TabContent() {
-          if (index === 3) {
+          if (index === 0){
+            MessagePage()
+          }else if (index === 3) {
             MinePage()
           } else {
             Text("这是第" + index + "个页面")
@@ -35,9 +37,10 @@ struct MainPage {
     .scrollable(false)
     .width("100%")
     .height("100%")
+    .barHeight(49)
+
     .onChange((index) => {
       this.chooseIndex = index
-      console.log(`index =${index}`)
     })
   }
 
