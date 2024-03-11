@@ -1,5 +1,6 @@
 import { MessageConversationType } from '../../MessageConversationType'
 import { MessageConversationPage } from './MessageConversationPage'
+import { MessageSubscriptionPage } from './MessageSubscriptionPage'
 
 @Component
 @Preview
@@ -78,7 +79,7 @@ export struct MessagePage {
         .fontSize(16)
         .fontColor(this.chooseIndex === index ? "#262628" : "#A3A3A4")
         .margin({
-          top: 10,
+          top: 11,
           left: 10,
           right: 10
         })
@@ -106,8 +107,7 @@ export struct MessagePage {
       })
         .visibility(this.chooseIndex === 1 ? Visibility.Visible : Visibility.None)
 
-      Text("公众号")
-        .fullScreen()
+      MessageSubscriptionPage()
         .visibility(this.chooseIndex === 2 ? Visibility.Visible : Visibility.None)
 
     }
