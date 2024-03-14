@@ -1,5 +1,6 @@
 import promptAction from '@ohos.promptAction'
 import { MainPageBottomTabEntity } from '../entity/MainPageBottomTabEntity'
+import { ContactsPage } from './contacts/ContactsPage'
 import { MessagePage } from './message/MessagePage'
 import { MinePage } from './mine/MinePage'
 
@@ -26,6 +27,8 @@ struct MainPage {
             MessagePage()
           }else if (index === 3) {
             MinePage()
+          }else if (index === 1){
+            ContactsPage()
           } else {
             Text("这是第" + index + "个页面")
           }
