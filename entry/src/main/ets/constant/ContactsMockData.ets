@@ -22,7 +22,6 @@ export class ContactsMockData{
     this.pinyinList().map((title)=>{
       let group = new ContactsUserGroupItemEntity(title,this.mockContactsList())
       items.push(group)
-      items = items.concat(this.mockContactsList())
     })
     return items
   }

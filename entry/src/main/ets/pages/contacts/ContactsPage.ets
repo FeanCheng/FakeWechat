@@ -129,7 +129,7 @@ export struct ContactsPage {
       .margin({
         left: 20
       })
-      .backgroundColor(Color.White)
+      .backgroundColor(Color.Blue)
   }
 
   @Builder buildContactsItemCard(){
