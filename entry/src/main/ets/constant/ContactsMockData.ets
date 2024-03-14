@@ -9,10 +9,10 @@ export class ContactsMockData{
   }
 
 
-  private static mockContactsList():ContactsUserItemEntity[]{
+  private static mockContactsList(group:string):ContactsUserItemEntity[]{
     let items = []
     for (let i = 0; i < 10; i++) {
-      let item = new ContactsUserItemEntity($r("app.media.ic_my_default_avatar"),`用户名:${i}`,`当前是第${i}个用户`)
+      let item = new ContactsUserItemEntity($r("app.media.ic_my_default_avatar"),`${group}:${i}`,`当前是第${i}个用户`)
       items.push(item)
     }
     return items
@@ -20,7 +20,7 @@ export class ContactsMockData{
   static mockContactsGroupsList():ContactsUserGroupItemEntity[]{
     let items = []
     this.pinyinList().map((title)=>{
-      let group = new ContactsUserGroupItemEntity(title,this.mockContactsList())
+      let group = new ContactsUserGroupItemEntity(title,this.mockContactsList(title))
       items.push(group)
     })
     return items
