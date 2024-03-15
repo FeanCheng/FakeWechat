@@ -1,4 +1,5 @@
 import promptAction from '@ohos.promptAction'
+import display from '@ohos.display'
 import { MineFunctionPanelWidget } from '../../widget/mine/MineFunctionPanelWidget'
 
 @Preview
@@ -25,6 +26,12 @@ export struct MinePage {
    */
   @State lastNewPictures:ResourceStr[] = []
 
+  /**
+   * 当前是否是显示二维码
+   */
+  @State isShowQrCode:boolean = false
+
+
   aboutToAppear(){
     //初始化头像数据
     for (let i = 0; i < 10; i++) {
@@ -34,22 +41,31 @@ export struct MinePage {
 
 
   build() {
-    Scroll(){
-      Column() {
-        this.headerContainer()
-        this.userStatusContainer()
-        MineFunctionPanelWidget()
-        Divider()
-          .color($r("app.color.ColorF5FAF7"))
-          .strokeWidth(8)
-        this.userCollection()
-        this.userFriendCircle()
-        this.userFriendNewPictures()
+    Stack(){
+      Scroll(){
+        Column() {
+          this.headerContainer()
+          this.userStatusContainer()
+          MineFunctionPanelWidget()
+          Divider()
+            .color($r("app.color.ColorF5FAF7"))
+            .strokeWidth(8)
+          this.userCollection()
+          this.userFriendCircle()
+          this.userFriendNewPictures()
+
+        }
       }
-    }
-    .edgeEffect(EdgeEffect.Spring)
-    .scrollBar(BarState.Off)
-    .width("100%")
+      .edgeEffect(EdgeEffect.Spring)
+      .scrollBar(BarState.Off)
+      .width("100%")
+      .height("100%")
+
+      if (this.isShowQrCode){
+        this.buildQrCodePanel()
+      }
+
+    }   .width("100%")
     .height("100%")
 
   }
@@ -113,6 +129,9 @@ export struct MinePage {
         .margin({
           right: 10,
           top: 30
+        })
+        .onClick(()=>{
+          this.isShowQrCode = true
         })
       //设置
       Image($r("app.media.ic_setting"))
@@ -262,4 +281,65 @@ export struct MinePage {
     .listDirection(Axis.Horizontal)
   }
 
+
+  @Builder buildQrCodePanel(){
+
+    Panel(true) {
+      Column() {
+        Image($r("app.media.ic_common_back"))
+          .width(30)
+          .height(30)
+          .rotate({
+            angle:-90
+          })
+          .alignSelf(ItemAlign.End)
+          .onClick(()=>{
+            this.isShowQrCode = false
+          }).margin({
+          right:20
+        })
+
+        Image($r("app.media.ic_my_default_avatar"))
+          .borderRadius(37)
+          .height(75)
+          .margin({
+            top: 20
+          })
+          .width(75)
+
+        Text("阿锅")
+          .fontSize(19)
+          .margin({
+            top: 12
+          })
+          .fontColor("#21252A")
+
+        Text("中国·厦门")
+          .fontSize(15)
+          .margin({
+            top: 6
+          })
+          .fontColor("#BCBDBD")
+
+        Image($r("app.media.ic_mine_my_qr_code"))
+          .height(200)
+          .margin({
+            top: 25
+          })
+          .width(200)
+
+        Text("扫一扫上面的二维码图案，加我微信")
+          .fontSize(13)
+          .margin({
+            top: 30
+          })
+          .fontColor("#222325")
+
+      }.height("100%")
+      .width("100%")
+    }
+    .halfHeight(600)
+    .backgroundMask("#99656567")
+    .backgroundColor(Color.White)
+  }
 }
