@@ -1,6 +1,7 @@
 import promptAction from '@ohos.promptAction'
 import { MainPageBottomTabEntity } from '../entity/MainPageBottomTabEntity'
 import { ContactsPage } from './contacts/ContactsPage'
+import { FriendsPostPage } from './FriendsPostPage'
 import { MessagePage } from './message/MessagePage'
 import { MinePage } from './mine/MinePage'
 
@@ -21,21 +22,30 @@ struct MainPage {
 
   build() {
     Tabs({ barPosition: BarPosition.End }) {
-      ForEach(this.bottomTabs, (item: MainPageBottomTabEntity, index: number) => {
-        TabContent() {
-          if (index === 0){
-            MessagePage()
-          }else if (index === 3) {
-            MinePage()
-          }else if (index === 1){
-            ContactsPage()
-          } else {
-            Text("这是第" + index + "个页面")
-          }
-        }
-        .tabBar(this.navigationBottomTabItem(item, index))
-        .tabIndex(index)
-      })
+      TabContent() {
+        MessagePage()
+      }
+      .tabBar(this.navigationBottomTabItem(this.bottomTabs[0], 0))
+      .tabIndex(0)
+
+      TabContent() {
+        ContactsPage()
+
+      }
+      .tabBar(this.navigationBottomTabItem(this.bottomTabs[1], 1))
+      .tabIndex(1)
+
+      TabContent() {
+        FriendsPostPage()
+      }
+      .tabBar(this.navigationBottomTabItem(this.bottomTabs[2], 2))
+      .tabIndex(2)
+
+      TabContent() {
+        MinePage()
+      }
+      .tabBar(this.navigationBottomTabItem(this.bottomTabs[3], 3))
+      .tabIndex(3)
     }
     .scrollable(false)
     .width("100%")
@@ -59,7 +69,7 @@ struct MainPage {
         .height(30)
     }
     .padding({
-      top:9.5
+      top: 9.5
     })
     .width("100%")
     .height(49)
